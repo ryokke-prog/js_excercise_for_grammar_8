@@ -29,15 +29,15 @@ let input;
 //     3. 「削除」と入力された時: deleteTodo関数を実行する
 //     4. 「終了」と入力された時: Consoleに'終了します'と表示して、Whileループを終了する
 //   - 「確認」「追加」「削除」「終了」以外がinputに代入されたら「「確認,追加,削除,終了」以外は入力できません」とConsoleに表示する
-while(input !== '終了') {
+while(input !== commands[3]) {
     input = window.prompt('「確認、追加、削除、終了」のいずれかを入力してください');
-    if(input ==='確認') {
+    if(input === commands[0]) {
         showTodos();
-    } else if(input === '追加') {
+    } else if(input === commands[1]) {
         createTodos();
-    } else if(input === '削除') {
+    } else if(input === commands[2]) {
         deleteTodos();
-    } else if(input === '終了') {
+    } else if(input === commands[3]) {
         console.log('終了します');
     } else {
         console.log('「確認、追加、削除、終了」以外は出力できません');
@@ -75,9 +75,13 @@ function showTodos() {
     console.log('========================');
     console.log('現在持っているタスク一覧');
     console.log('========================');
-    todos.forEach((todo, index)=> {
+    if(todos.length === 0) {
+        console.log('タスクなし');
+    } else {
+        todos.forEach((todo, index)=> {
         console.log(index + '：' + todo);
-    });
+        });
+    }
 };
 
 /**
@@ -93,7 +97,7 @@ function showTodos() {
 // ここにcreateTodo関数を作る
 function createTodos() {
     const addTodo = window.prompt('タスクを入力してください');
-    if(addTodo === null) {
+    if(!addTodo) {
         alert('何も入力されていないためスキップします');
     } else {
         todos.push(addTodo);
@@ -124,11 +128,11 @@ function createTodos() {
 // ここにdeleteTodo関数を作る
 function deleteTodos() {
     const deleteTodo = window.prompt('削除するタスクの番号を指定してください');
-    const deleteTodoNumber = parseInt(deleteTodo);
-    if(deleteTodoNumber < 0 || deleteTodoNumber > todos.length || isNaN(deleteTodoNumber)) {
+    const deleteTodoNumber = parseInt(deleteTodo, 10);
+    if(deleteTodoNumber < 0 || deleteTodoNumber >= todos.length || isNaN(deleteTodoNumber)) {
         alert('不正な値のためスキップします');
     } else {
-       const deletedTodos = todos.splice(deleteTodoNumber);
+       const deletedTodos = todos.splice(deleteTodoNumber,1);
        alert(deletedTodos[0] + 'を削除しました');
     }
     showTodos();
