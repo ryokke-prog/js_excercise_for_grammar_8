@@ -79,7 +79,7 @@ function showTodos() {
         console.log('タスクなし');
     } else {
         todos.forEach((todo, index)=> {
-        console.log(index + '：' + todo);
+        	console.log(index + '：' + todo);
         });
     }
 };
@@ -132,7 +132,7 @@ function deleteTodos() {
     if(deleteTodoNumber < 0 || deleteTodoNumber >= todos.length || isNaN(deleteTodoNumber)) {
         alert('不正な値のためスキップします');
     } else {
-       const deletedTodos = todos.splice(deleteTodoNumber,1);
+       const deletedTodos = todos.splice(deleteTodoNumber, 1);
        alert(deletedTodos[0] + 'を削除しました');
     }
     showTodos();
